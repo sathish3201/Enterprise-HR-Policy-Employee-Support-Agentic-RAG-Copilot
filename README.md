@@ -1,3 +1,4 @@
+```markdown
 # Enterprise HR Policy & Employee Support Agentic RAG Copilot
 
 An end-to-end Forward Deployed Engineer (FDE) project that converts an Agentic RAG workflow into a deployable internal HR product using LangGraph, FastAPI, Pinecone, OpenAI, Tavily, HTML, CSS, and JavaScript.
@@ -21,7 +22,7 @@ The answer exists in the private company HR knowledge base, so the system should
 
 Another employee asks:
 
-> “What are the latest public holiday rules in Bangladesh?”
+> “What are the latest public holiday rules in Hyderabad?”
 
 The internal KB may not contain current public information. The system should recognize weak private evidence, use external search, grade the evidence, and clearly identify the answer as external information requiring HR validation.
 
@@ -60,11 +61,10 @@ Security + Audit + Testing
 Deployment
       ↓
 Observe + Improve
+
 ```
 
 ## 3. Simple Architecture
-
-![System architecture](docs/architecture.png)
 
 ```text
 Employee / HR User
@@ -83,6 +83,7 @@ Pinecone         (fallback only)
          ↓
 OpenAI LLM
 Grounded Answer
+
 ```
 
 ## 4. Agentic RAG Workflow
@@ -118,12 +119,13 @@ Generate from KB   [4] Tavily Web Search
                         Max retry reached?
                                ↓
                     Insufficient Evidence
+
 ```
 
 ## 5. Technology Stack
 
 | Layer | Technology | Purpose |
-|---|---|---|
+| --- | --- | --- |
 | Agent workflow | LangGraph | Stateful routing and conditional decisions |
 | LLM | OpenAI | Routing, grading, rewriting, answer generation |
 | Embeddings | OpenAI `text-embedding-3-small` | Vector embeddings |
@@ -161,6 +163,7 @@ Enterprise-HR-Policy-Agentic-RAG-Copilot/
 ├── requirements.txt
 ├── run.py
 └── README.md
+
 ```
 
 ## 7. Setup
@@ -169,24 +172,28 @@ Enterprise-HR-Policy-Agentic-RAG-Copilot/
 
 ```bash
 python -m venv venv
+
 ```
 
 Windows:
 
 ```bash
 venv\Scripts\activate
+
 ```
 
 macOS/Linux:
 
 ```bash
 source venv/bin/activate
+
 ```
 
 ### Step 2 — Install dependencies
 
 ```bash
 pip install -r requirements.txt
+
 ```
 
 ### Step 3 — Configure environment
@@ -203,18 +210,21 @@ OPENAI_MODEL=gpt-4o-mini
 EMBEDDING_MODEL=text-embedding-3-small
 ADMIN_API_KEY=change-me-in-production
 APP_ENV=development
+
 ```
 
 ### Step 4 — Load sample HR knowledge
 
 ```bash
 python ingest_sample_kb.py
+
 ```
 
 ### Step 5 — Run the application
 
 ```bash
 python run.py
+
 ```
 
 Open `http://127.0.0.1:8080` and FastAPI docs at `http://127.0.0.1:8080/docs`.
@@ -222,6 +232,7 @@ Open `http://127.0.0.1:8080` and FastAPI docs at `http://127.0.0.1:8080/docs`.
 ## 8. Classroom Demo Scenarios
 
 ### Demo A — Private KB Success
+
 Ask: **How many annual leave days do employees receive?**
 
 Expected path:
@@ -231,15 +242,18 @@ Router → KB
 Private KB Retrieval
 KB Grade → GOOD
 Generate from Private KB
+
 ```
 
 ### Demo B — Company Policy Question
+
 Ask: **How many days per week can I work remotely?**
 
 Expected result: answer from the internal HR handbook, without web search.
 
 ### Demo C — External / Current Information
-Ask: **What are the latest public holiday rules in Bangladesh?**
+
+Ask: **What are the latest public holiday rules in Hyderabad?**
 
 Expected path when internal HR documents are insufficient:
 
@@ -250,9 +264,11 @@ KB Grade → WEAK
 Tavily Search
 Web Grade → GOOD
 Web Answer
+
 ```
 
 ### Demo D — Weak Query Rewrite
+
 Ask an ambiguous HR question such as: **What happens if mine is wrong?**
 
 If neither private nor web evidence is sufficient, the workflow can rewrite the query, retry the KB, and eventually stop with insufficient evidence rather than hallucinating.
@@ -260,3 +276,7 @@ If neither private nor web evidence is sufficient, the workflow can rewrite the 
 ## 9. What Changed From the IT Support Reference
 
 The application structure, graph topology, API shape, retrieval logic, ingestion layer, audit layer, Docker setup, and frontend behavior remain the same. Only domain-specific elements were changed: HR prompts, HR configuration names, UI wording, example questions, sample documents, and documentation.
+
+```
+
+```
