@@ -1,7 +1,7 @@
 import time
 from pinecone import Pinecone , ServerlessSpec
 # from langchain_openai import OpenAIEmbeddings
-from langchain_huggingface import HuggingFaceEmbeddings
+# from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_pinecone import PineconeVectorStore
 from app.core.config import get_settings
 from langchain_community.embeddings import FastEmbedEmbeddings
@@ -41,8 +41,10 @@ def get_embedding_dimension(model_name: str | None = None) -> int:
     #     return 384
     if "sentence-transformers/all-minilm-l6-v2" in normalized:
         return 384
-    if "baai/bge-small-en-v1.5" in normailized:
+    
+    if "baai/bge-small-en-v1.5" in normalized:
         return 384
+
     raise ValueError(
         f"Unsupported embedding model '{model_name or settings.embedding_model}' for Pinecone. "
         "Add the matching dimension to EMBEDDING_DIMENSIONS."
@@ -58,11 +60,16 @@ def get_embeddings():
         #     encode_kwargs={"normalize_embeddings": True}
         #     # api_key=settings.openai_api_key,
         # )
+<<<<<<< HEAD
        _embeddings = FastEmbedEmbeddings(
+=======
+        _embeddings = FastEmbedEmbeddings(
+>>>>>>> 58f8f98 (fastembedd add to run in render)
             model_name=settings.embedding_model,
             encode_kwargs={"normalize_embeddings": True}
             # api_key=settings.openai_api_key,
-        )
+        )       
+        
     return _embeddings
 # sample_vector = embeddings.embed_query("What is Agentic RAG?")
 # print("Embedding dimensions:", len(sample_vector))
