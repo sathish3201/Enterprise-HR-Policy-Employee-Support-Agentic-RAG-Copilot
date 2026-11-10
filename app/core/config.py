@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     embedding_model: str = "baai/bge-small-en-v1.5"
     openai_model: str = "gpt-4o-mini"
     groq_model:str= "openai/gpt-oss-20b"
+    vision_model:str = "qwen/qwen3.8-27b"
     
     top_k: int = 4
     max_retries: int = 1
@@ -25,6 +26,7 @@ class Settings(BaseSettings):
     audit_db_path: str = str(BASE_DIR / "data" / "audit.db")
     upload_dir: str = str(BASE_DIR / "uploads")
     sample_kb_dir: str = str(BASE_DIR / "data" / "sample_kb")
+    image_dir:str = str(BASE_DIR / "data" / "images")
     model_config = SettingsConfigDict(env_file=str(BASE_DIR / ".env"), extra="ignore")
 
 

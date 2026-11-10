@@ -6,6 +6,11 @@ from langchain_community.document_loaders import PyPDFLoader, TextLoader
 from docx import Document as DocxDocument
 
 
+
+
+
+
+
 SUPPORTED = {".pdf", ".txt", ".md", ".docx"}
 
 
@@ -21,6 +26,7 @@ def load_file(path: Path) -> list[Document]:
         text = "\n".join(p.text for p in doc.paragraphs if p.text.strip())
         return [Document(page_content=text, metadata={"source": str(path)})]
     raise ValueError(f"Unsupported file type: {suffix}")
+
 
 
 
