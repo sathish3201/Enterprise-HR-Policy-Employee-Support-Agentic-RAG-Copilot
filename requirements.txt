@@ -13,7 +13,7 @@ langchain-pinecone==0.2.13
 langchain-text-splitters==1.1.2
 langchain-groq
 langchain-huggingface
-
+sentence-transformers
 pinecone==7.3.0
 openai==3.3.1
 
