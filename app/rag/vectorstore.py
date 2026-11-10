@@ -4,6 +4,7 @@ from pinecone import Pinecone , ServerlessSpec
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_pinecone import PineconeVectorStore
 from app.core.config import get_settings
+from langchain_community.embeddings import FastEmbedEmbeddings
 
 settings = get_settings()
 
@@ -18,6 +19,7 @@ EMBEDDING_DIMENSIONS = {
     "text-embedding-ada-002": 1536,
     # "all-minilm-l6-v2": 384,/
      "sentence-transformers/all-minilm-l6-v2":384,
+    "baai/bge-small-en-v1.5": 384,
 
 }
 
@@ -39,6 +41,8 @@ def get_embedding_dimension(model_name: str | None = None) -> int:
     #     return 384
     if "sentence-transformers/all-minilm-l6-v2" in normalized:
         return 384
+    if "baai/bge-small-en-v1.5" in normailized:
+        return 384
     raise ValueError(
         f"Unsupported embedding model '{model_name or settings.embedding_model}' for Pinecone. "
         "Add the matching dimension to EMBEDDING_DIMENSIONS."
@@ -49,7 +53,12 @@ def get_embeddings():
     if _embeddings is None:
         # if not settings.openai_api_key:
         #     raise RuntimeError("OPENAI_API_KEY is missing")
-        _embeddings = HuggingFaceEmbeddings(
+        # _embeddings = HuggingFaceEmbeddings(
+        #     model_name=settings.embedding_model,
+        #     encode_kwargs={"normalize_embeddings": True}
+        #     # api_key=settings.openai_api_key,
+        # )
+       _embeddings = FastEmbedEmbeddings(
             model_name=settings.embedding_model,
             encode_kwargs={"normalize_embeddings": True}
             # api_key=settings.openai_api_key,
