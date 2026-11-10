@@ -62,6 +62,7 @@ def get_embeddings():
         # )
           _embeddings = FastEmbedEmbeddings(
             model_name=settings.embedding_model,
+            threads=1,
             encode_kwargs={"normalize_embeddings": True}
             # api_key=settings.openai_api_key,
         ) 
